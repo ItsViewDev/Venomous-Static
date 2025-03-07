@@ -19,49 +19,57 @@
     <script src="index.js" defer></script>
 
     <script>
-      const correctPassword = "1234"; // Pass
+      const obfuscatedPassword = "NDU2Nzc="; 
+
+      // Function to deobfuscate the password
+      function deobfuscatePassword(obf) {
+        let decoded = atob(obf); // Base64 decode
+        return decoded.split('').map(char => String.fromCharCode(char.charCodeAt(0) - 3)).join('');
+      }
 
       // Function to set a cookie
       function setCookie(name, value, days) {
-          let expires = "";
-          if (days) {
-              let date = new Date();
-              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Expiry in days
-              expires = "; expires=" + date.toUTCString();
-          }
-          document.cookie = name + "=" + value + "; path=/" + expires;
+        let expires = "";
+        if (days) {
+          let date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // Expiry in days
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + "; path=/" + expires;
       }
 
       // Function to get a cookie
       function getCookie(name) {
-          let cookies = document.cookie.split("; ");
-          for (let i = 0; i < cookies.length; i++) {
-              let [key, value] = cookies[i].split("=");
-              if (key === name) return value;
-          }
-          return null;
+        let cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+          let [key, value] = cookies[i].split("=");
+          if (key === name) return value;
+        }
+        return null;
       }
 
       // Function to check the password
       function checkPassword() {
-          let savedPassword = getCookie("sitePassword");
-          if (savedPassword === correctPassword) {
-              return; // Correct password already entered, allow access
-          }
+        // Deobfuscate the password
+        const correctPassword = deobfuscatePassword(obfuscatedPassword);
 
-          let userInput = prompt("Enter the password to access this site:");
-          if (userInput === correctPassword) {
-              setCookie("sitePassword", userInput, 7); // Save password in a cookie for 7 days
-          } else {
-              alert("Incorrect password! Access denied.");
-              window.location.href = "https://www.google.com"; // Redirect if wrong
-          }
+        let savedPassword = getCookie("sitePassword");
+        if (savedPassword === correctPassword) {
+          return; // Correct password already entered, allow access
+        }
+
+        let userInput = prompt("Enter the password to access this site:");
+        if (userInput === correctPassword) {
+          setCookie("sitePassword", userInput, 7); // Save password in a cookie for 7 days
+        } else {
+          alert("Incorrect password! Access denied.");
+          window.location.href = "https://www.google.com"; // Redirect if wrong
+        }
       }
 
       // Run the password check when the page loads
       window.onload = checkPassword;
     </script>
-
   </head>
 
   <body>
