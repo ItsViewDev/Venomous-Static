@@ -19,9 +19,9 @@
     <script src="index.js" defer></script>
 
     <script>
-      const obfuscatedPassword = "NDU2Nzc="; 
+      const obfuscatedPassword = "NDU2Nw=="; 
 
-      // Function to deobfuscate the password
+      // Function to deobf
       function deobfuscatePassword(obf) {
         let decoded = atob(obf); // Base64 decode
         return decoded.split('').map(char => String.fromCharCode(char.charCodeAt(0) - 3)).join('');
