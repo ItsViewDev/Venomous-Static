@@ -18,6 +18,13 @@ body {
   justify-content: center;
 }
 
+.flex-center2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; 
+}
+
 .header-center {
   align-items: center;
   flex-direction: column;
