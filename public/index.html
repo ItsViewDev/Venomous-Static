@@ -2,24 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Venomous | v2.00</title>
-    <meta
-      name="description"
-      content="Venomous Unblocker | v2.00"
-    />
-    <meta
-      name="keywords"
-      content="proxy, web proxy, ultraviolet, service workers, unblock websites, unblock chromebook, free web proxy, proxy list, proxy sites, un block chromebook, online proxy, proxy server, proxysite, proxy youtube, bypass securly, bypass iboss, bypass lightspeed filter, holy unblocker, chromebooks, titanium network, unblock youtube, youtube proxy, unblocked youtube, youtube unblocked"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#434c5e"
-    />
+    <meta name="description" content="Venomous Unblocker | v2.00" />
+    <meta name="keywords" content="proxy, web proxy, ultraviolet, service workers, unblock websites, unblock chromebook, free web proxy, proxy list, proxy sites, un block chromebook, online proxy, proxy server, proxysite, proxy youtube, bypass securly, bypass iboss, bypass lightspeed filter, holy unblocker, chromebooks, titanium network, unblock youtube, youtube proxy, unblocked youtube, youtube unblocked" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#434c5e" />
     <meta name="googlebot" content="index, follow, snippet" />
     <link rel="shortcut icon" content="favicon.ico" />
     <link rel="stylesheet" href="index.css" />
@@ -30,53 +17,64 @@
     <script src="register-sw.js" defer></script>
     <script src="search.js" defer></script>
     <script src="index.js" defer></script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is Venomous?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Proxy using Ultraviolet as a backend."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do I unblock sites using Venomous?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Simply type the site / search query you want to access in the text box."
-            }
+
+    <script>
+      const correctPassword = "mypassword"; // Change this to your password
+
+      // Function to set a cookie
+      function setCookie(name, value, days) {
+          let expires = "";
+          if (days) {
+              let date = new Date();
+              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Expiry in days
+              expires = "; expires=" + date.toUTCString();
           }
-          }
-        ]
+          document.cookie = name + "=" + value + "; path=/" + expires;
       }
+
+      // Function to get a cookie
+      function getCookie(name) {
+          let cookies = document.cookie.split("; ");
+          for (let i = 0; i < cookies.length; i++) {
+              let [key, value] = cookies[i].split("=");
+              if (key === name) return value;
+          }
+          return null;
+      }
+
+      // Function to check the password
+      function checkPassword() {
+          let savedPassword = getCookie("sitePassword");
+          if (savedPassword === correctPassword) {
+              return; // Correct password already entered, allow access
+          }
+
+          let userInput = prompt("Enter the password to access this site:");
+          if (userInput === correctPassword) {
+              setCookie("sitePassword", userInput, 7); // Save password in a cookie for 7 days
+          } else {
+              alert("Incorrect password! Access denied.");
+              window.location.href = "https://www.google.com"; // Redirect if wrong
+          }
+      }
+
+      // Run the password check when the page loads
+      window.onload = checkPassword;
     </script>
+
   </head>
 
   <body>
-    <div
-      title="Venomous Logo"
-      class="flex-center logo-wrapper header-center"
-    >
+    <div title="Venomous Logo" class="flex-center logo-wrapper header-center">
       <img class="logo" src="vv.png" alt="Ultraviolet" />
       <h1>Venomous</h1>
     </div>
     <div class="flex-center2 desc left-margin">
-      <p>
-         Venomous - Advanced Proxy
-      </p>
+      <p>Venomous - Advanced Proxy</p>
     </div>
 
     <form id="uv-form" class="flex-center">
-      <input
-        id="uv-search-engine"
-        value="https://www.google.com/search?q=%s"
-        type="hidden"
-      />
+      <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
       <input id="uv-address" type="text" placeholder="Search the web freely" />
     </form>
     <div class="desc left-margin">
@@ -85,16 +83,8 @@
     </div>
     <footer>
       <div>
-        <a
-          title="The TompHTTP GitHub organization"
-          href="https://github.com/tomphttp"
-          >TompHTTP</a
-        >
-        <a
-          title="The official deployment repository for Ultraviolet"
-          href="https://github.com/titaniumnetwork-dev/Ultraviolet-App"
-          >GitHub</a
-        >
+        <a title="The TompHTTP GitHub organization" href="https://github.com/tomphttp">TompHTTP</a>
+        <a title="The official deployment repository for Ultraviolet" href="https://github.com/titaniumnetwork-dev/Ultraviolet-App">GitHub</a>
         <a title="License information" href="credits.html">Credits</a>
       </div>
       <div>
